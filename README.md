@@ -2,7 +2,7 @@
 
 Creating a shared or static library using CMake
 
-## Phase 1: Traditional Method (without CMake)
+## Traditional Method (Without CMake)
 
 ### Create an object file for `hello.c`
 
@@ -79,12 +79,12 @@ But if you use `libhello.so` shared library, you will get an error message after
 
 To solve this problem for shared libraries there are many solutions which two of them is mentioned here:
 
-- [GOOD SOLUTION] Open terminal in the directory where `libhello.so` exists and execute this command to tell the Linux that where the `libhello.so` is located.
+- [BEST SOLUTION] Open terminal in the directory where `libhello.so` exists and execute this command to tell the Linux that where the `libhello.so` is located.
 
 ```console
 export LD_LIBRARY_PATH=$PWD:$LD_LIBRARY_PATH
 ```
-- [BAD SOLUTION] Embed the "path" to the `libhello.so` in the `main` executable using GCC.
+- [WORST SOLUTION] Embed the "path" to the `libhello.so` in the `main` executable using GCC.
 This is not a good solution because if you move `libhello.so` to other location this solution becomes useless!
 
 ```console
@@ -101,4 +101,23 @@ To see the list of shared libraries which the `main` executable needs, use this 
 readelf -d main
 ```
 
+## Easy Method (Using CMake)
 
+[How to create a shared library with cmake?](https://stackoverflow.com/questions/17511496/how-to-create-a-shared-library-with-cmake)
+
+All the instructions needed to build the libraries and executables are described in `CMakeLists.txt` file.
+
+
+
+In order to generate the Makefile and other files used to
+build this project in a directory called `build` first go to the root of this repository and run this command:
+
+```console
+cmake -S src -B build
+```
+
+Now generate the libraries and executables in `build` directory:
+
+```console
+cmake --build build
+```
