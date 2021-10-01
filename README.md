@@ -55,10 +55,23 @@ The `main.c` program uses the `Hello` function from `libhello` library. So we mu
 
 ```console
 gcc -L. -Wall -o main main.c -lhello
+```
+
+The command above by default uses `libhello.so` shared library if it doesn't exist GCC looks for `libhello.a` static library.
+
+If you want to make it use only `libhello.a` static library you should use this command:
+
+```console
+gcc -L. -Wall -o main main.c -l:libhello.a
+```
+
+Now run the `main` generated executable:
+
+```console
 ./main
 ```
 
-**The difference between a shared and static libraries can be seen here.**
+**The difference between shared and static libraries can be seen here.**
 
 If you use `libhello.a` static library, `main.c` gets all it needs to run `Hello()` function including `puts()`.
 
