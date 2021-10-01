@@ -6,7 +6,7 @@ project(HelloLibrary)
 # Generate shared / static librarry for hello.c
 # STATIC generates `libhello.a`
 # SHARED geneartes `libhello.so`
-add_library(hello SHARED hello.c)
+add_library(hello STATIC hello.c)
 
 # Genarete `main` executable from `main.c`
 add_executable(main main.c)
