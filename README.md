@@ -73,13 +73,30 @@ Now run the `main` generated executable:
 
 **The difference between shared and static libraries can be seen here.**
 
-If you use `libhello.a` static library, `main.c` gets all it needs to run `Hello()` function including `puts()`.
+If you use `libhello.a` static library, `main` executable embeds `Hello()` function in itself and does not need the `libhello.a` file anymore.
 
-But if you use `libhello.so` shared library, you will get an error message after execution of `./main`. Because the `libhello.so` itself depends on `stdio` for `puts()` function.
+But if you use `libhello.so` shared library, you will get an error message after execution of `./main`. Because the `main` executable needs the `libhello.so` file to call `Hello()` function.
 
-To solve this problem if you used shared libraries for compilation of `main.c` program, before running `./main` you should run this command to tell the Linux that where the `libhello.so` is located.
+To solve this problem for shared libraries there are many solutions which two of them is mentioned here:
+
+- [GOOD SOLUTION] Open terminal in the directory where `libhello.so` exists and execute this command to tell the Linux that where the `libhello.so` is located.
 
 ```console
 export LD_LIBRARY_PATH=$PWD:$LD_LIBRARY_PATH
 ```
+- [BAD SOLUTION] Embed the "path" to the `libhello.so` in the `main` executable using GCC.
+This is not a good solution because if you move `libhello.so` to other location this solution becomes useless!
+
+gcc -L. -Wall -Wl,-rpath=$PWD -o main main.c -lhello
+
+[RPATH and RUNPATH](http://blog.tremily.us/posts/rpath/)
+
+### Use `readelf` command
+
+To see the list of shared libraries which the `main` executable needs, use this command:
+
+```console
+readelf -d main
+```
+
 
