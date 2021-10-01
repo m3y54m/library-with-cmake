@@ -87,7 +87,9 @@ export LD_LIBRARY_PATH=$PWD:$LD_LIBRARY_PATH
 - [BAD SOLUTION] Embed the "path" to the `libhello.so` in the `main` executable using GCC.
 This is not a good solution because if you move `libhello.so` to other location this solution becomes useless!
 
+```console
 gcc -L. -Wall -Wl,-rpath=$PWD -o main main.c -lhello
+```
 
 [RPATH and RUNPATH](http://blog.tremily.us/posts/rpath/)
 
